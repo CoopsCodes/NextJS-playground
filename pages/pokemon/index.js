@@ -1,11 +1,15 @@
 import Link from "next/link";
+import { useRouter } from "next/router";
 
 export default function Pokemon() {
+	const router = useRouter();
+
+	function returnHome() {
+		router.push("/");
+	}
+
 	return (
 		<div>
-			<Link href="/">
-				<a>home</a>
-			</Link>
 			<Link href="/form">
 				<a> form </a>
 			</Link>
@@ -13,6 +17,7 @@ export default function Pokemon() {
 			<Link href="/pokemon/eggs">
 				<a> show me eggs </a>
 			</Link>
+			<button onClick={returnHome}>Home</button>
 		</div>
 	);
 }
