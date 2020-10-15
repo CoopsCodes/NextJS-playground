@@ -1,7 +1,8 @@
 // Next.js API route support: https://nextjs.org/docs/api-routes/introduction
 import jwt from "jsonwebtoken";
 
-const KEY = "ashdgfvkeuwv";
+// this is NOT a real key!
+const KEY = "asdfkhbaefjbh";
 
 export default (req, res) => {
 	if (!req.body) {
@@ -10,9 +11,7 @@ export default (req, res) => {
 		return;
 	}
 	const { username, password } = req.body;
-	// console.log("username", username);
-	// console.log("password", password);
-	// res.statusCode = 200;
+
 	res.json({
 		token: jwt.sign(
 			{

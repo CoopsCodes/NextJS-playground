@@ -1,3 +1,4 @@
+import Link from "next/link";
 import { useState } from "react";
 import jwt from "jsonwebtoken";
 
@@ -6,6 +7,7 @@ export default function Form() {
 	const [password, setPassword] = useState("");
 
 	const [message, setMessage] = useState("You are not logged in");
+	const [secret, setSecret] = useState("");
 
 	async function submitForm() {
 		const res = await fetch("./api/hello", {
@@ -26,13 +28,31 @@ export default function Form() {
 					json.admin ? "an admin" : "not an admin"
 				}`
 			);
+
+			const res = await fetch("./api/secret", {
+				method: "POST",
+				headers: {
+					"Content-Type": "application/json",
+				},
+				body: JSON.stringify({ token }),
+			}).then((t) => t.json());
+
+			if (res.secretAdminCode) {
+				setSecret(res.secretAdminCode);
+			} else {
+				setSecret("Whomp Whomp");
+			}
 		} else {
 			setMessage(`Oops try again`);
 		}
 	}
 	return (
 		<div>
+			<Link href="/">
+				<a>Home</a>
+			</Link>
 			<h1>{message}</h1>
+			<h1>Secret: {secret}</h1>
 			<form>
 				<input
 					type="text"
